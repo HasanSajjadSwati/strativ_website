@@ -1,2 +1,9 @@
-﻿.superpowers/
-wordpress/
+.superpowers/
+node_modules/
+
+# Portable dev stack (PHP, MariaDB, WP-CLI, DB data) — machine-specific, not committed
+/stack/
+
+# WordPress core install — theme & plugin source live in /wp-content/ and are
+# junctioned into /wp/wp-content/. Core itself is not committed.
+/wp/
