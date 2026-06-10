@@ -1062,6 +1062,79 @@ a.contact-card__value:hover { color: var(--red); }
   .project-meta { position: static; }
 }
 
+/* ==========================================================================
+   BLOG / 404 / SEARCH
+   ========================================================================== */
+
+/* ---------- Pagination ---------- */
+.pagination { margin-top: clamp(40px, 5vw, 60px); }
+.pagination .nav-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.pagination .page-numbers {
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  height: 44px;
+  padding: 0 0.6rem;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-family: var(--font-head);
+  color: var(--muted);
+  transition: color 0.25s ease, border-color 0.25s ease, background 0.3s ease;
+}
+.pagination .page-numbers:hover { color: var(--text); border-color: rgba(255, 30, 60, 0.45); }
+.pagination .page-numbers.current {
+  color: #fff;
+  background: var(--red-grad);
+  border-color: transparent;
+}
+
+/* ---------- 404 ---------- */
+.error-404 {
+  position: relative;
+  overflow: hidden;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  padding-top: 120px;
+}
+.error-404 .container { position: relative; z-index: 1; }
+.error-404__code {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(6rem, 20vw, 12rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.error-404 .btn { margin-top: 2rem; }
+
+/* ---------- Search form ---------- */
+.search-form {
+  display: flex;
+  gap: 0.6rem;
+  max-width: 520px;
+}
+.search-form__input {
+  flex: 1;
+  padding: 0.85em 1.2em;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+.search-form__input:focus {
+  outline: none;
+  border-color: rgba(255, 30, 60, 0.6);
+  box-shadow: 0 0 0 3px rgba(255, 30, 60, 0.15);
+}
+
 /* --------------------------------------------------------------------------
    Reduced motion
    -------------------------------------------------------------------------- */
