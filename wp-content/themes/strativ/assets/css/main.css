@@ -764,6 +764,212 @@ html.js [data-reveal] { opacity: 0; }
   .hero { min-height: 88vh; }
 }
 
+/* ==========================================================================
+   INNER PAGES
+   ========================================================================== */
+
+/* ---------- About ---------- */
+.about-story { align-items: start; gap: clamp(30px, 5vw, 70px); }
+.about-story .section-title { font-size: clamp(1.6rem, 3vw, 2.3rem); }
+.about-story p { color: var(--muted); font-size: 1.05rem; }
+.about-story p + p { margin-top: 1.1rem; }
+
+/* ---------- Team ---------- */
+.team-card { text-align: center; }
+.team-card__avatar {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1.1rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #fff;
+  background: var(--red-grad);
+  box-shadow: 0 6px 24px rgba(255, 30, 60, 0.4);
+}
+.team-card h3 { font-size: 1.1rem; margin-bottom: 0.2rem; }
+.team-card p { font-size: 0.88rem; }
+
+/* ---------- Services detail blocks ---------- */
+.service-detail {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(30px, 5vw, 70px);
+  align-items: center;
+  padding-block: clamp(40px, 6vw, 72px);
+  border-bottom: 1px solid var(--border);
+}
+.service-detail:last-of-type { border-bottom: none; }
+.service-detail--flip .service-detail__text { order: 2; }
+.service-detail__index {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 30, 60, 0.4);
+  display: block;
+  margin-bottom: 1rem;
+}
+.service-detail__text h2 { font-size: clamp(1.6rem, 3.2vw, 2.4rem); margin-bottom: 1rem; }
+.service-detail__text > p { color: var(--muted); font-size: 1.06rem; margin-bottom: 1.6rem; }
+
+.check-list { list-style: none; padding: 0; display: grid; gap: 0.85rem; }
+.check-list li {
+  position: relative;
+  padding-left: 1.9rem;
+  color: var(--text);
+}
+.check-list li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--red);
+  font-weight: 700;
+}
+
+.service-detail__visual {
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(360px 200px at 50% 30%, rgba(255, 30, 60, 0.16), transparent 70%),
+    var(--surface);
+}
+.service-detail__icon {
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  color: var(--red);
+  text-shadow: 0 0 60px var(--glow);
+}
+
+/* ---------- Contact ---------- */
+.contact-layout { align-items: start; gap: clamp(24px, 4vw, 48px); }
+.contact-info { display: grid; gap: clamp(16px, 2vw, 22px); }
+.contact-card { display: flex; flex-direction: column; gap: 0.4rem; }
+.contact-card__label {
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.contact-card__value { font-size: 1.15rem; color: var(--text); font-weight: 500; }
+a.contact-card__value:hover { color: var(--red); }
+.map-placeholder {
+  margin-top: 1rem;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.02) 0 12px, transparent 12px 24px),
+    var(--bg-2);
+  border: 1px dashed var(--border);
+}
+
+/* Contact Form 7 dark styling */
+.contact-form .wpcf7 { width: 100%; }
+.contact-form p { margin-bottom: 1.1rem; }
+.contact-form label { display: block; font-size: 0.9rem; color: var(--muted); }
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form input[type="tel"],
+.contact-form input[type="url"],
+.contact-form textarea,
+.contact-form select {
+  width: 100%;
+  margin-top: 0.4rem;
+  padding: 0.85em 1em;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+  outline: none;
+  border-color: rgba(255, 30, 60, 0.6);
+  box-shadow: 0 0 0 3px rgba(255, 30, 60, 0.15);
+}
+.contact-form textarea { min-height: 150px; resize: vertical; }
+.contact-form .wpcf7-submit {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #fff;
+  background: var(--red-grad);
+  border: none;
+  border-radius: 99px;
+  padding: 0.92em 2em;
+  cursor: pointer;
+  box-shadow: 0 6px 26px rgba(255, 30, 60, 0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.contact-form .wpcf7-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(255, 30, 60, 0.55);
+}
+.contact-form .wpcf7-response-output {
+  border-radius: 10px;
+  border-color: var(--border) !important;
+  color: var(--text);
+}
+
+/* ---------- Careers ---------- */
+.job-list { display: grid; gap: 1rem; }
+.job-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  color: inherit;
+}
+.job-row:hover { color: inherit; }
+.job-row h3 { font-size: 1.25rem; margin-bottom: 0.3rem; }
+.job-row__meta { color: var(--muted); font-size: 0.92rem; }
+.job-row__arrow {
+  font-size: 1.4rem;
+  color: var(--red);
+  transition: transform 0.35s ease;
+}
+.job-row:hover .job-row__arrow { transform: translateX(8px); }
+
+/* ---------- Entry content (pages + blog) ---------- */
+.entry-content { font-size: 1.08rem; color: #cfcfd6; }
+.entry-content > * + * { margin-top: 1.3rem; }
+.entry-content h2 { font-size: 1.7rem; color: var(--text); margin-top: 2.4rem; }
+.entry-content h3 { font-size: 1.3rem; color: var(--text); margin-top: 2rem; }
+.entry-content a { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
+.entry-content ul, .entry-content ol { padding-left: 1.4rem; display: grid; gap: 0.6rem; }
+.entry-content li { color: var(--muted); }
+.entry-content blockquote {
+  border-left: 3px solid var(--red);
+  padding-left: 1.4rem;
+  color: var(--text);
+  font-style: italic;
+}
+.entry-content img { border-radius: var(--radius); margin-block: 1.5rem; }
+
+@media (max-width: 768px) {
+  .service-detail { grid-template-columns: 1fr; }
+  .service-detail--flip .service-detail__text { order: 0; }
+  .about-story { grid-template-columns: 1fr; }
+  .contact-layout { grid-template-columns: 1fr; }
+  .job-row { flex-direction: row; }
+}
+
 /* --------------------------------------------------------------------------
    Reduced motion
    -------------------------------------------------------------------------- */
