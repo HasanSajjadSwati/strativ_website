@@ -32,10 +32,14 @@ services:
       mariadb:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-fsS", "http://localhost:80/wp-login.php"]
+      # Hit a static core asset so health doesn't depend on the install/seed
+      # finishing. start_period covers the slow first boot so the container
+      # isn't pulled out of the proxy (which would 404 the domain).
+      test: ["CMD", "curl", "-fsS", "http://localhost:80/wp-includes/images/blank.gif"]
       interval: 15s
       timeout: 10s
-      retries: 20
+      retries: 10
+      start_period: 180s
 
   mariadb:
     image: mariadb:11.8
