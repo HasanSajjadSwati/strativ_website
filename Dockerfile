@@ -12,6 +12,12 @@ RUN apt-get update \
     && curl -fsSL -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x /usr/local/bin/wp
 
+# Pretty permalinks: enable mod_rewrite and allow .htaccess overrides in the
+# web root, otherwise every non-homepage URL 404s.
+RUN a2enmod rewrite
+COPY docker/apache-wordpress.conf     /etc/apache2/conf-enabled/z-wordpress.conf
+COPY docker/wordpress.htaccess        /usr/src/wordpress/.htaccess
+
 # Custom theme + plugin go into the pristine source tree so the official
 # entrypoint copies them into /var/www/html on first run.
 COPY wp-content/themes/strativ        /usr/src/wordpress/wp-content/themes/strativ
