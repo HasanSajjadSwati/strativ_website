@@ -1,4 +1,4 @@
-# Strativ — Coolify-ready deployment.
+# Strativ — Coolify-ready deployment (docker-compose.yaml).
 #
 # Coolify auto-generates the SERVICE_* values (domain, db user/password, admin
 # password) and injects them. For a plain `docker compose up` locally, copy

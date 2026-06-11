@@ -97,7 +97,7 @@ footer, fonts and colors.
 ## Deployment (Docker / Coolify)
 
 The repo is container-ready. A `Dockerfile` bakes the custom theme + plugin onto the official
-WordPress image, and `docker-compose.yml` runs WordPress + MariaDB. On first boot the container
+WordPress image, and `docker-compose.yaml` runs WordPress + MariaDB. On first boot the container
 auto-installs WordPress, activates the theme and all plugins, and seeds the placeholder content —
 no manual setup.
 
@@ -108,7 +108,7 @@ What persists vs ships:
 ### Deploy on Coolify
 
 1. In Coolify: **New Resource → Docker Compose**, point it at this Git repo.
-2. Coolify detects `docker-compose.yml` and auto-generates every secret it references
+2. Coolify detects `docker-compose.yaml` and auto-generates every secret it references
    (`SERVICE_PASSWORD_MYSQL`, `SERVICE_PASSWORD_MYSQLROOT`, `SERVICE_PASSWORD_WPADMIN`,
    `SERVICE_USER_MYSQL`) and a public domain (`SERVICE_FQDN_WORDPRESS`).
 3. Deploy. First boot installs + seeds automatically (watch the logs for `[strativ] Init done.`).
