@@ -1,0 +1,23 @@
+# Keep the build context small. Only the theme, plugin, seeder and docker/
+# boot script are needed to build the image.
+.git
+.github
+.gitattributes
+.gitignore
+.dockerignore
+.superpowers
+.env
+.env.*
+!.env.example
+
+# Local-only dev stack + WordPress core (huge; never needed in the image)
+stack/
+wp/
+
+# Tooling / docs not used by the build
+docs/
+node_modules/
+scripts/*.py
+scripts/*.ps1
+*.md
+README*

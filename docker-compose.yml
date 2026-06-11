@@ -1,0 +1,56 @@
+# Strativ — Coolify-ready deployment.
+#
+# Coolify auto-generates the SERVICE_* values (domain, db user/password, admin
+# password) and injects them. For a plain `docker compose up` locally, copy
+# .env.example to .env first so those variables have values.
+
+services:
+  wordpress:
+    build: .
+    restart: unless-stopped
+    environment:
+      # Coolify generates a public domain for port 80 and exposes it as
+      # ${SERVICE_FQDN_WORDPRESS} (full https URL).
+      - SERVICE_FQDN_WORDPRESS_80
+      - WORDPRESS_DB_HOST=mariadb:3306
+      - WORDPRESS_DB_NAME=${MYSQL_DATABASE:-strativ}
+      - WORDPRESS_DB_USER=${SERVICE_USER_MYSQL}
+      - WORDPRESS_DB_PASSWORD=${SERVICE_PASSWORD_MYSQL}
+      # Lock the canonical URL to the deployed domain.
+      - WORDPRESS_SITE_URL=${SERVICE_FQDN_WORDPRESS:-http://localhost}
+      - WORDPRESS_CONFIG_EXTRA=define('WP_HOME', '${SERVICE_FQDN_WORDPRESS:-http://localhost}'); define('WP_SITEURL', '${SERVICE_FQDN_WORDPRESS:-http://localhost}');
+      # First-boot admin account (Coolify generates the password).
+      - WP_TITLE=${WP_TITLE:-Strativ — Software That Ships}
+      - WP_ADMIN_USER=${WP_ADMIN_USER:-admin}
+      - WP_ADMIN_PASSWORD=${SERVICE_PASSWORD_WPADMIN}
+      - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL:-admin@example.com}
+    volumes:
+      - wp-uploads:/var/www/html/wp-content/uploads
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:80/wp-login.php"]
+      interval: 15s
+      timeout: 10s
+      retries: 20
+
+  mariadb:
+    image: mariadb:11.8
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=${SERVICE_PASSWORD_MYSQLROOT}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-strativ}
+      - MYSQL_USER=${SERVICE_USER_MYSQL}
+      - MYSQL_PASSWORD=${SERVICE_PASSWORD_MYSQL}
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  wp-uploads:
+  mariadb-data:

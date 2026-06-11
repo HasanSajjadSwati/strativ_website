@@ -94,10 +94,52 @@ footer, fonts and colors.
 
 ---
 
+## Deployment (Docker / Coolify)
+
+The repo is container-ready. A `Dockerfile` bakes the custom theme + plugin onto the official
+WordPress image, and `docker-compose.yml` runs WordPress + MariaDB. On first boot the container
+auto-installs WordPress, activates the theme and all plugins, and seeds the placeholder content —
+no manual setup.
+
+What persists vs ships:
+- **Application code** (theme, plugin) ships *inside the image* — every deploy is reproducible from git.
+- **Uploads** (`wp-content/uploads`) and the **database** live in named volumes and survive redeploys.
+
+### Deploy on Coolify
+
+1. In Coolify: **New Resource → Docker Compose**, point it at this Git repo.
+2. Coolify detects `docker-compose.yml` and auto-generates every secret it references
+   (`SERVICE_PASSWORD_MYSQL`, `SERVICE_PASSWORD_MYSQLROOT`, `SERVICE_PASSWORD_WPADMIN`,
+   `SERVICE_USER_MYSQL`) and a public domain (`SERVICE_FQDN_WORDPRESS`).
+3. Deploy. First boot installs + seeds automatically (watch the logs for `[strativ] Init done.`).
+4. Your generated admin password is in Coolify under the resource's **Environment Variables**
+   (`SERVICE_PASSWORD_WPADMIN`). Log in at `https://<your-domain>/wp-admin` as `admin`.
+
+No `.env` is needed on Coolify — it injects everything.
+
+### Run the container locally
+
+```bash
+cp .env.example .env        # fill in passwords
+docker compose up --build
+```
+
+For local access add a port mapping to the `wordpress` service (Coolify uses its own proxy, so
+it's omitted by default):
+
+```yaml
+    ports:
+      - "8080:80"
+```
+
+Then visit http://localhost:8080.
+
+---
+
 ## Notes
 
-- The dev DB lives in `stack/data/` and is not committed. To move this project to another
-  machine, copy the repo and re-run the stack setup, or export/import the database.
-- For production, deploy the `wp-content/themes/strativ` and `wp-content/plugins/strativ-core`
-  folders to a real WordPress host and install the three plugins (Elementor, ACF, Contact
-  Form 7).
+- The **portable dev stack** under `stack/` (used by `start-dev.ps1`) and the Docker deployment
+  are independent. The stack is for local Windows development without Docker; the Dockerfile is
+  for shipping.
+- The dev DB lives in `stack/data/` and is not committed. Move the project by copying the repo
+  and re-running the stack setup, or export/import the database.

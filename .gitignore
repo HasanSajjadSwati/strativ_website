@@ -1,9 +1,33 @@
-.superpowers/
-node_modules/
-
-# Portable dev stack (PHP, MariaDB, WP-CLI, DB data) — machine-specific, not committed
+# ── Local dev stack & WordPress core (machine-specific, not committed) ──
+# Portable PHP + MariaDB + WP-CLI and the DB data directory.
 /stack/
-
-# WordPress core install — theme & plugin source live in /wp-content/ and are
-# junctioned into /wp/wp-content/. Core itself is not committed.
+# WordPress core install. Theme & plugin source live in /wp-content/ and are
+# junctioned into /wp/wp-content/; core itself is never committed.
 /wp/
+
+# ── Brainstorming / scratch artifacts ──
+.superpowers/
+
+# ── Environment & secrets ──
+.env
+.env.*
+!.env.example
+
+# ── Dependencies ──
+node_modules/
+vendor/
+
+# ── WordPress runtime data (should never be committed) ──
+wp-content/uploads/
+wp-content/upgrade/
+wp-content/cache/
+*.log
+
+# ── OS / editor cruft ──
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*~
