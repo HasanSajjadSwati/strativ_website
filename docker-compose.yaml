@@ -44,6 +44,15 @@ services:
   mariadb:
     image: mariadb:11.8
     restart: unless-stopped
+    # Keep MariaDB's memory footprint small so it isn't OOM-killed on a
+    # modest server (which causes intermittent "DB connection" errors).
+    command:
+      - --performance-schema=OFF
+      - --innodb-buffer-pool-size=64M
+      - --innodb-log-buffer-size=8M
+      - --max-connections=50
+      - --key-buffer-size=8M
+      - --table-open-cache=64
     environment:
       - MYSQL_ROOT_PASSWORD=${SERVICE_PASSWORD_MYSQLROOT}
       - MYSQL_DATABASE=${MYSQL_DATABASE:-strativ}
@@ -56,6 +65,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+      start_period: 60s
 
 volumes:
   wp-uploads:
